@@ -1,28 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Video Downloader</title>
+<title>AI Caption Generator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  padding: 20px;
+  background: #0f172a;
+  color: white;
+}
+button {
+  padding: 12px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background: #22c55e;
+  color: white;
+}
+.box {
+  margin-top: 20px;
+  padding: 15px;
+  background: #1e293b;
+  border-radius: 10px;
+}
+</style>
 </head>
+
 <body>
-  <h1>Download Video Gratis</h1>
 
-  <input type="text" id="link" placeholder="Paste link video">
-  <button onclick="download()">Download</button>
+<h2>🔥 AI Caption Generator</h2>
+<p>Klik tombol buat caption viral</p>
 
-  <p id="result"></p>
+<button onclick="generate()">Generate</button>
 
-  <script>
-    async function download() {
-      let url = document.getElementById("link").value;
-      document.getElementById("result").innerText = "Processing...";
+<div class="box" id="result">
+Caption muncul disini...
+</div>
 
-      try {
-        let res = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(url));
-        document.getElementById("result").innerText = "Link diproses (demo).";
-      } catch {
-        document.getElementById("result").innerText = "Error.";
-      }
-    }
-  </script>
+<script>
+const captions = [
+"Diam bukan berarti kalah.",
+"Hidup pelan asal konsisten.",
+"Fokus sama tujuan, bukan omongan.",
+"Pelan tapi pasti naik level.",
+"Bukti lebih keras dari kata.",
+"Kerja sekarang, santai nanti.",
+"Proses ga pernah bohong.",
+"Jangan berhenti sebelum berhasil.",
+"Upgrade diri tiap hari.",
+"Mimpi ga gratis."
+];
+
+function generate() {
+  const random = captions[Math.floor(Math.random() * captions.length)];
+  document.getElementById("result").innerText = random;
+}
+</script>
+
 </body>
 </html>
