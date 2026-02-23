@@ -1,45 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AI Caption Generator</title>
+<title>Creator AI Tools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 body {
-  font-family: Arial;
-  text-align: center;
-  padding: 20px;
+  font-family: Arial, sans-serif;
   background: #0f172a;
   color: white;
+  text-align: center;
+  padding: 20px;
 }
+
+h1 {
+  margin-bottom: 10px;
+}
+
 button {
   padding: 12px 20px;
-  font-size: 18px;
+  margin: 5px;
   border: none;
   border-radius: 8px;
+  font-size: 16px;
   background: #22c55e;
   color: white;
 }
+
 .box {
-  margin-top: 20px;
-  padding: 15px;
   background: #1e293b;
+  padding: 15px;
   border-radius: 10px;
+  margin-top: 15px;
+  min-height: 50px;
 }
 </style>
 </head>
 
 <body>
 
-<h2>🔥 AI Caption Generator</h2>
-<p>Klik tombol buat caption viral</p>
+<h1>🔥 Creator AI Tools</h1>
+<p>Generate caption & hashtag gratis</p>
 
-<button onclick="generate()">Generate</button>
+<h3>Caption Generator</h3>
+<button onclick="generateCaption()">Generate Caption</button>
+<button onclick="copyCaption()">Copy</button>
 
-<div class="box" id="result">
+<div class="box" id="captionBox">
 Caption muncul disini...
 </div>
 
+<h3>Hashtag Generator</h3>
+<button onclick="generateHashtag()">Generate Hashtag</button>
+<button onclick="copyHashtag()">Copy</button>
+
+<div class="box" id="hashtagBox">
+Hashtag muncul disini...
+</div>
+
 <script>
+
 const captions = [
 "Diam bukan berarti kalah.",
 "Hidup pelan asal konsisten.",
@@ -50,13 +70,46 @@ const captions = [
 "Proses ga pernah bohong.",
 "Jangan berhenti sebelum berhasil.",
 "Upgrade diri tiap hari.",
-"Mimpi ga gratis."
+"Mimpi ga gratis.",
+"Terus maju walau pelan.",
+"Hari ini usaha, besok hasil.",
+"Disiplin itu mahal.",
+"Kerja keras ga pernah sia-sia.",
+"Bangun versi terbaik diri."
 ];
 
-function generate() {
+const hashtags = [
+"#fyp #viral #motivation #success #mindset",
+"#reels #contentcreator #inspiration #growth",
+"#tiktokviral #belajar #selfimprovement",
+"#kerjakeras #fokus #tujuan",
+"#entrepreneur #bisnis #ide",
+"#motivasi #semangat #harapan",
+"#creatorlife #produktif #berkembang"
+];
+
+function generateCaption() {
   const random = captions[Math.floor(Math.random() * captions.length)];
-  document.getElementById("result").innerText = random;
+  document.getElementById("captionBox").innerText = random;
 }
+
+function generateHashtag() {
+  const random = hashtags[Math.floor(Math.random() * hashtags.length)];
+  document.getElementById("hashtagBox").innerText = random;
+}
+
+function copyCaption() {
+  const text = document.getElementById("captionBox").innerText;
+  navigator.clipboard.writeText(text);
+  alert("Caption copied!");
+}
+
+function copyHashtag() {
+  const text = document.getElementById("hashtagBox").innerText;
+  navigator.clipboard.writeText(text);
+  alert("Hashtag copied!");
+}
+
 </script>
 
 </body>
