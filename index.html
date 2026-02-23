@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Creator Tools</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Downloader</title>
 </head>
+<body>
+  <h1>Download Video Gratis</h1>
 
-<body style="font-family:sans-serif; padding:20px">
+  <input type="text" id="link" placeholder="Paste link video">
+  <button onclick="download()">Download</button>
 
-<h1>AI Creator Tools Gratis</h1>
-<p>Masukkan topik:</p>
+  <p id="result"></p>
 
-<input id="topic" placeholder="contoh: konten motivasi">
-<button onclick="generate()">Generate Caption</button>
+  <script>
+    async function download() {
+      let url = document.getElementById("link").value;
+      document.getElementById("result").innerText = "Processing...";
 
-<p id="output"></p>
-
-<script>
-function generate() {
-  let topic = document.getElementById("topic").value;
-  document.getElementById("output").innerText =
-    "Caption contoh untuk: " + topic + " — konten ini bakal menarik perhatian!";
-}
-</script>
-
+      try {
+        let res = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent(url));
+        document.getElementById("result").innerText = "Link diproses (demo).";
+      } catch {
+        document.getElementById("result").innerText = "Error.";
+      }
+    }
+  </script>
 </body>
 </html>
