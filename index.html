@@ -1,52 +1,66 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hashtag Generator Pro</title>
+
+<title>Hashtag Generator AI — Viral Tool Indonesia</title>
+<meta name="description" content="Buat hashtag viral otomatis untuk TikTok Instagram YouTube gratis.">
 
 <style>
 
 body {
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #0f172a, #020617);
-  color: white;
   margin: 0;
-  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(180deg, #020617, #000);
+  color: white;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: 32px;
+  background: linear-gradient(90deg,#22c55e,#4ade80);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  opacity: 0.7;
 }
 
 .container {
-  max-width: 500px;
+  max-width: 700px;
   margin: auto;
-  text-align: center;
+  padding: 20px;
 }
 
-h1 {
-  color: #22c55e;
-  text-shadow: 0 0 10px #22c55e;
-  font-size: 24px;
+.card {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
 }
 
-input, select {
+input, select, button {
   width: 100%;
   padding: 14px;
+  margin-top: 10px;
   border-radius: 10px;
   border: none;
-  margin-top: 10px;
   font-size: 16px;
 }
 
 button {
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 10px;
-  background: #22c55e;
+  background: linear-gradient(90deg,#22c55e,#16a34a);
   color: white;
-  cursor: pointer;
-  margin-top: 10px;
   font-weight: bold;
-  font-size: 16px;
+  cursor: pointer;
 }
 
 button:hover {
@@ -54,12 +68,35 @@ button:hover {
 }
 
 #result {
-  margin-top: 20px;
-  background: rgba(30,41,59,0.9);
+  margin-top: 15px;
   padding: 15px;
-  border-radius: 12px;
+  background: #020617;
+  border-radius: 10px;
   word-break: break-word;
-  font-size: 14px;
+}
+
+.features {
+  margin-top: 40px;
+}
+
+.feature {
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+#ad {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px dashed #22c55e;
+  border-radius: 10px;
+  text-align: center;
+}
+
+footer {
+  margin-top: 50px;
+  text-align: center;
+  opacity: 0.5;
+  font-size: 13px;
 }
 
 </style>
@@ -67,29 +104,55 @@ button:hover {
 </head>
 <body>
 
+<section class="hero">
+<h1>🚀 Hashtag Generator AI</h1>
+<p>Buat hashtag viral dalam 1 klik — gratis selamanya</p>
+</section>
+
 <div class="container">
 
-<h1>🔥 Hashtag Generator Pro</h1>
+<div class="card">
 
 <input type="text" id="topic" placeholder="Contoh: video lucu">
 
 <select id="platform">
-  <option value="tiktok">TikTok Mode</option>
-  <option value="instagram">Instagram Mode</option>
-  <option value="youtube">YouTube Mode</option>
+<option value="tiktok">TikTok</option>
+<option value="instagram">Instagram</option>
+<option value="youtube">YouTube</option>
 </select>
 
-<button onclick="generate()">Generate</button>
-<button onclick="copyTags()">Copy Hashtag</button>
+<button onclick="generate()">Generate Hashtag</button>
 
 <div id="result"></div>
+
+<div id="ad">
+💰 SLOT IKLAN — tempel script AdSense di sini nanti
+</div>
+
+</div>
+
+<div class="features">
+
+<div class="feature">⚡ Generate cepat & otomatis</div>
+<div class="feature">🔥 Hashtag viral siap pakai</div>
+<div class="feature">📈 Cocok untuk creator & bisnis</div>
+
+</div>
+
+<footer>
+© 2026 Hashtag Tool
+</footer>
 
 </div>
 
 <script>
 
-function shuffle(array) {
-  return array.sort(() => Math.random() - 0.5);
+let visits = localStorage.getItem("visits") || 0;
+visits++;
+localStorage.setItem("visits", visits);
+
+function shuffle(a) {
+  return a.sort(() => Math.random() - 0.5);
 }
 
 function generate() {
@@ -104,48 +167,30 @@ function generate() {
 
   const clean = topic.replace(/\s+/g, "");
 
-  const base = [
-    "#" + clean,
-    "#" + clean + "viral",
-    "#" + clean + "trend",
-    "#" + clean + "video",
-    "#" + clean + "indonesia",
-    "#" + clean + "creator",
-    "#" + clean + "konten",
-    "#" + clean + "2026"
-  ];
+  const base = Array.from({length: 60}, (_,i) => "#" + clean + (i+1));
 
   const trending = [
     "#viral","#fyp","#trending","#explore","#kontenviral",
-    "#creatorindonesia","#videoviral","#trendhariini",
-    "#fypindonesia","#viralindonesia","#reels","#shorts"
+    "#creator","#videoviral","#trend","#reels","#shorts"
   ];
 
-  const tiktok = ["#tiktok","#tiktokviral","#tiktokindonesia","#fypシ","#foryou"];
-  const instagram = ["#instagram","#instareels","#reelsinstagram","#explorepage","#instaviral"];
-  const youtube = ["#youtube","#youtubeshorts","#youtubecreator","#ytshorts","#youtubeindonesia"];
+  const tiktok = ["#tiktok","#foryou","#tiktokviral"];
+  const instagram = ["#instagram","#instareels","#explorepage"];
+  const youtube = ["#youtube","#ytshorts","#youtubeshorts"];
 
   let platformTags = [];
-
   if (platform === "tiktok") platformTags = tiktok;
   if (platform === "instagram") platformTags = instagram;
   if (platform === "youtube") platformTags = youtube;
 
-  const combined = shuffle([...base, ...trending, ...platformTags]);
+  const tags = shuffle([...base,...trending,...platformTags]).slice(0,100);
 
-  const finalTags = combined.slice(0, 50);
+  const output = tags.join(" ");
 
-  document.getElementById("result").innerText = finalTags.join(" ");
-}
+  document.getElementById("result").innerText = output;
 
-function copyTags() {
-  const text = document.getElementById("result").innerText;
-  if (!text) {
-    alert("Generate dulu bro 😄");
-    return;
-  }
-  navigator.clipboard.writeText(text);
-  alert("Copied 🚀");
+  navigator.clipboard.writeText(output);
+
 }
 
 </script>
