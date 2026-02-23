@@ -1,113 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<title>Creator AI Tools</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Hashtag Generator Pro</title>
 
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: #0f172a;
+  background: radial-gradient(circle at top, #0f172a, #020617);
   color: white;
   text-align: center;
-  padding: 20px;
+  padding: 40px;
 }
 
 h1 {
-  margin-bottom: 10px;
+  color: #22c55e;
+  text-shadow: 0 0 10px #22c55e;
+}
+
+input, select {
+  padding: 12px;
+  width: 280px;
+  border-radius: 10px;
+  border: none;
+  margin: 10px;
 }
 
 button {
   padding: 12px 20px;
-  margin: 5px;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 10px;
   background: #22c55e;
   color: white;
+  cursor: pointer;
+  margin: 5px;
+  font-weight: bold;
+  box-shadow: 0 0 10px #22c55e;
 }
 
-.box {
-  background: #1e293b;
-  padding: 15px;
-  border-radius: 10px;
-  margin-top: 15px;
-  min-height: 50px;
+button:hover {
+  transform: scale(1.05);
+}
+
+#result {
+  margin-top: 20px;
+  background: rgba(30,41,59,0.8);
+  padding: 20px;
+  border-radius: 12px;
+  word-wrap: break-word;
 }
 </style>
-</head>
 
+</head>
 <body>
 
-<h1>🔥 Creator AI Tools</h1>
-<p>Generate caption & hashtag gratis</p>
+<h1>🔥 Hashtag Generator Pro</h1>
 
-<h3>Caption Generator</h3>
-<button onclick="generateCaption()">Generate Caption</button>
-<button onclick="copyCaption()">Copy</button>
+<input type="text" id="topic" placeholder="Contoh: video lucu">
 
-<div class="box" id="captionBox">
-Caption muncul disini...
-</div>
+<br>
 
-<h3>Hashtag Generator</h3>
-<button onclick="generateHashtag()">Generate Hashtag</button>
-<button onclick="copyHashtag()">Copy</button>
+<select id="platform">
+  <option value="tiktok">TikTok Mode</option>
+  <option value="instagram">Instagram Mode</option>
+  <option value="youtube">YouTube Mode</option>
+</select>
 
-<div class="box" id="hashtagBox">
-Hashtag muncul disini...
-</div>
+<br>
+
+<button onclick="generate()">Generate</button>
+<button onclick="copyTags()">Copy</button>
+
+<div id="result"></div>
 
 <script>
 
-const captions = [
-"Diam bukan berarti kalah.",
-"Hidup pelan asal konsisten.",
-"Fokus sama tujuan, bukan omongan.",
-"Pelan tapi pasti naik level.",
-"Bukti lebih keras dari kata.",
-"Kerja sekarang, santai nanti.",
-"Proses ga pernah bohong.",
-"Jangan berhenti sebelum berhasil.",
-"Upgrade diri tiap hari.",
-"Mimpi ga gratis.",
-"Terus maju walau pelan.",
-"Hari ini usaha, besok hasil.",
-"Disiplin itu mahal.",
-"Kerja keras ga pernah sia-sia.",
-"Bangun versi terbaik diri."
-];
-
-const hashtags = [
-"#fyp #viral #motivation #success #mindset",
-"#reels #contentcreator #inspiration #growth",
-"#tiktokviral #belajar #selfimprovement",
-"#kerjakeras #fokus #tujuan",
-"#entrepreneur #bisnis #ide",
-"#motivasi #semangat #harapan",
-"#creatorlife #produktif #berkembang"
-];
-
-function generateCaption() {
-  const random = captions[Math.floor(Math.random() * captions.length)];
-  document.getElementById("captionBox").innerText = random;
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
 }
 
-function generateHashtag() {
-  const random = hashtags[Math.floor(Math.random() * hashtags.length)];
-  document.getElementById("hashtagBox").innerText = random;
+function generate() {
+
+  const topic = document.getElementById("topic").value.trim();
+  const platform = document.getElementById("platform").value;
+
+  if (!topic) {
+    alert("Isi topik dulu bro 😄");
+    return;
+  }
+
+  const clean = topic.replace(/\s+/g, "");
+
+  const base = [
+    "#" + clean,
+    "#" + clean + "viral",
+    "#" + clean + "trend",
+    "#" + clean + "video",
+    "#" + clean + "indonesia",
+    "#" + clean + "creator",
+    "#" + clean + "konten",
+    "#" + clean + "2026"
+  ];
+
+  const trending = [
+    "#viral","#fyp","#trending","#explore","#kontenviral",
+    "#creatorindonesia","#videoviral","#trendhariini",
+    "#fypindonesia","#viralindonesia","#reels","#shorts"
+  ];
+
+  const tiktok = ["#tiktok","#tiktokviral","#tiktokindonesia","#fypシ","#foryou"];
+  const instagram = ["#instagram","#instareels","#reelsinstagram","#explorepage","#instaviral"];
+  const youtube = ["#youtube","#youtubeshorts","#youtubecreator","#ytshorts","#youtubeindonesia"];
+
+  let platformTags = [];
+
+  if (platform === "tiktok") platformTags = tiktok;
+  if (platform === "instagram") platformTags = instagram;
+  if (platform === "youtube") platformTags = youtube;
+
+  const combined = shuffle([...base, ...trending, ...platformTags]);
+
+  // ambil 50 hashtag
+  const finalTags = combined.slice(0, 50);
+
+  document.getElementById("result").innerText = finalTags.join(" ");
 }
 
-function copyCaption() {
-  const text = document.getElementById("captionBox").innerText;
+function copyTags() {
+  const text = document.getElementById("result").innerText;
+  if (!text) {
+    alert("Generate dulu bro 😄");
+    return;
+  }
   navigator.clipboard.writeText(text);
-  alert("Caption copied!");
-}
-
-function copyHashtag() {
-  const text = document.getElementById("hashtagBox").innerText;
-  navigator.clipboard.writeText(text);
-  alert("Hashtag copied!");
+  alert("Copied 🚀");
 }
 
 </script>
