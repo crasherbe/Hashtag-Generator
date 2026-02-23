@@ -1,117 +1,75 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Hashtag Generator AI — Viral Tool Indonesia</title>
-<meta name="description" content="Buat hashtag viral otomatis untuk TikTok Instagram YouTube gratis.">
+<title>Creator Tools Hub</title>
 
 <style>
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(180deg, #020617, #000);
-  color: white;
+body{
+margin:0;
+font-family:sans-serif;
+background:#020617;
+color:white;
+padding:20px;
 }
 
-.hero {
-  text-align: center;
-  padding: 60px 20px;
+.container{
+max-width:700px;
+margin:auto;
 }
 
-.hero h1 {
-  font-size: 32px;
-  background: linear-gradient(90deg,#22c55e,#4ade80);
-  -webkit-background-clip: text;
-  color: transparent;
+.card{
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
 }
 
-.hero p {
-  opacity: 0.7;
+input,select,button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:8px;
+border:none;
 }
 
-.container {
-  max-width: 700px;
-  margin: auto;
-  padding: 20px;
+button{
+background:#22c55e;
+color:white;
+font-weight:bold;
 }
 
-.card {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
-  padding: 20px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
+#result{
+margin-top:10px;
+background:#000;
+padding:10px;
+border-radius:8px;
+word-break:break-word;
 }
 
-input, select, button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: none;
-  font-size: 16px;
+#adbox{
+background:#111;
+padding:20px;
+text-align:center;
+border-radius:10px;
+margin-top:10px;
 }
-
-button {
-  background: linear-gradient(90deg,#22c55e,#16a34a);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-#result {
-  margin-top: 15px;
-  padding: 15px;
-  background: #020617;
-  border-radius: 10px;
-  word-break: break-word;
-}
-
-.features {
-  margin-top: 40px;
-}
-
-.feature {
-  margin-bottom: 20px;
-  opacity: 0.8;
-}
-
-#ad {
-  margin-top: 20px;
-  padding: 20px;
-  border: 1px dashed #22c55e;
-  border-radius: 10px;
-  text-align: center;
-}
-
-footer {
-  margin-top: 50px;
-  text-align: center;
-  opacity: 0.5;
-  font-size: 13px;
-}
-
 </style>
-
 </head>
-<body>
 
-<section class="hero">
-<h1>🚀 Hashtag Generator AI</h1>
-<p>Buat hashtag viral dalam 1 klik — gratis selamanya</p>
-</section>
+<body>
 
 <div class="container">
 
 <div class="card">
+<h2>💎 Poin: <span id="points"></span></h2>
+<button onclick="watchAd()">🎬 Nonton Iklan (+5 poin)</button>
+</div>
+
+<div class="card">
+
+<h2>🔥 Hashtag Generator</h2>
 
 <input type="text" id="topic" placeholder="Contoh: video lucu">
 
@@ -121,75 +79,90 @@ footer {
 <option value="youtube">YouTube</option>
 </select>
 
-<button onclick="generate()">Generate Hashtag</button>
+<button onclick="generate()">Generate (2 poin)</button>
 
 <div id="result"></div>
 
-<div id="ad">
-💰 SLOT IKLAN — tempel script AdSense di sini nanti
 </div>
 
+<div id="adbox">
+💰 Slot iklan nanti (AdSense / rewarded ads)
 </div>
-
-<div class="features">
-
-<div class="feature">⚡ Generate cepat & otomatis</div>
-<div class="feature">🔥 Hashtag viral siap pakai</div>
-<div class="feature">📈 Cocok untuk creator & bisnis</div>
-
-</div>
-
-<footer>
-© 2026 Hashtag Tool
-</footer>
 
 </div>
 
 <script>
 
-let visits = localStorage.getItem("visits") || 0;
-visits++;
-localStorage.setItem("visits", visits);
+// init poin
+let points = localStorage.getItem("points");
 
-function shuffle(a) {
-  return a.sort(() => Math.random() - 0.5);
+if(!points){
+points = 50;
+localStorage.setItem("points", points);
 }
 
-function generate() {
+updatePoints();
 
-  const topic = document.getElementById("topic").value.trim();
-  const platform = document.getElementById("platform").value;
+function updatePoints(){
+document.getElementById("points").innerText = points;
+}
 
-  if (!topic) {
-    alert("Isi topik dulu bro 😄");
-    return;
-  }
+function watchAd(){
 
-  const clean = topic.replace(/\s+/g, "");
+alert("Simulasi nonton iklan 5 detik 😄");
 
-  const base = Array.from({length: 60}, (_,i) => "#" + clean + (i+1));
+setTimeout(()=>{
+points = parseInt(points) + 5;
+localStorage.setItem("points", points);
+updatePoints();
+alert("+5 poin ditambahkan");
+},2000);
 
-  const trending = [
-    "#viral","#fyp","#trending","#explore","#kontenviral",
-    "#creator","#videoviral","#trend","#reels","#shorts"
-  ];
+}
 
-  const tiktok = ["#tiktok","#foryou","#tiktokviral"];
-  const instagram = ["#instagram","#instareels","#explorepage"];
-  const youtube = ["#youtube","#ytshorts","#youtubeshorts"];
+function shuffle(a){
+return a.sort(()=>Math.random()-0.5);
+}
 
-  let platformTags = [];
-  if (platform === "tiktok") platformTags = tiktok;
-  if (platform === "instagram") platformTags = instagram;
-  if (platform === "youtube") platformTags = youtube;
+function generate(){
 
-  const tags = shuffle([...base,...trending,...platformTags]).slice(0,100);
+if(points < 2){
+alert("Poin habis bro — nonton iklan dulu 😄");
+return;
+}
 
-  const output = tags.join(" ");
+points -= 2;
+localStorage.setItem("points", points);
+updatePoints();
 
-  document.getElementById("result").innerText = output;
+const topic=document.getElementById("topic").value.trim();
+const platform=document.getElementById("platform").value;
 
-  navigator.clipboard.writeText(output);
+if(!topic){alert("Isi topik dulu");return;}
+
+const clean=topic.replace(/\s+/g,"");
+
+const base=Array.from({length:60},(_,i)=>"#"+clean+(i+1));
+
+const trending=["#viral","#fyp","#trending","#explore"];
+
+const tiktok=["#tiktok","#foryou"];
+const instagram=["#instagram","#reels"];
+const youtube=["#youtube","#shorts"];
+
+let platformTags=[];
+
+if(platform==="tiktok")platformTags=tiktok;
+if(platform==="instagram")platformTags=instagram;
+if(platform==="youtube")platformTags=youtube;
+
+const tags=shuffle([...base,...trending,...platformTags]).slice(0,100);
+
+const output=tags.join(" ");
+
+document.getElementById("result").innerText=output;
+
+navigator.clipboard.writeText(output);
 
 }
 
