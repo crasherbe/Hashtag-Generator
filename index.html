@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Creator Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body style="font-family:sans-serif; padding:20px">
+
+<h1>AI Creator Tools Gratis</h1>
+<p>Masukkan topik:</p>
+
+<input id="topic" placeholder="contoh: konten motivasi">
+<button onclick="generate()">Generate Caption</button>
+
+<p id="output"></p>
+
+<script>
+function generate() {
+  let topic = document.getElementById("topic").value;
+  document.getElementById("output").innerText =
+    "Caption contoh untuk: " + topic + " — konten ini bakal menarik perhatian!";
+}
+</script>
+
+</body>
+</html>
